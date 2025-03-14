@@ -97,6 +97,7 @@ public class Index5 {
                 while ((ln = file.readLine()) != null) {
                     /// -2- **** complete here ****
                     ///**** hint   flen +=  ________________(ln, fid);
+                     flen += processLine(ln, fid);
                 }
                 sources.get(fid).length = flen;
 
