@@ -67,21 +67,21 @@ public class Index5 {
         System.out.println("*** Number of terms = " + index.size());
     }
     
-    public int processLine(String line, int fid) {
-        int count;
-        String[] words = line.split("\\W+"); // Splitting line into words
-       count=(words.length == 1 && words[0].isEmpty()) ? 0 : words.length;
-        for (String word : words) {
-            word = word.toLowerCase(); // Convert word to lowercase
-            if (!index.containsKey(word)) {
-                index.put(word,new DictEntry());
-            } else {
-                System.out.println("---Found: " + word);
-            }
-            index.get(word).addPosting(fid); // Add file ID to the word's PostingList
-        }
-        return count;
-    }
+    // public int processLine(String line, int fid) {
+    //     int count;
+    //     String[] words = line.split("\\W+"); // Splitting line into words
+    //    count=(words.length == 1 && words[0].isEmpty()) ? 0 : words.length;
+    //     for (String word : words) {
+    //         word = word.toLowerCase(); // Convert word to lowercase
+    //         if (!index.containsKey(word)) {
+    //             index.put(word,new DictEntry());
+    //         } else {
+    //             System.out.println("---Found: " + word);
+    //         }
+    //         index.get(word).addPosting(fid); // Add file ID to the word's PostingList
+    //     }
+    //     return count;
+    // }
 
  
     //-----------------------------------------------
@@ -97,7 +97,7 @@ public class Index5 {
                 while ((ln = file.readLine()) != null) {
                     /// -2- **** complete here ****
                     ///**** hint   flen +=  ________________(ln, fid);
-                     flen += processLine(ln, fid);
+                     flen += indexOneLine(ln, fid);
                 }
                 sources.get(fid).length = flen;
 
