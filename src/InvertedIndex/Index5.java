@@ -66,6 +66,13 @@ public class Index5 {
         System.out.println("------------------------------------------------------");
         System.out.println("*** Number of terms = " + index.size());
     }
+    
+    public int processLine(String line, int fid) {
+        int count;
+        String[] words = line.split("\\W+"); // Splitting line into words
+       count=(words.length == 1 && words[0].isEmpty()) ? 0 : words.length;
+    }
+
  
     //-----------------------------------------------
     public void buildIndex(String[] files) {  // from disk not from the internet
