@@ -2,6 +2,45 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
+
+
+
+
+ /*
+  summary of methods in this file:
+
+Constructor (Index5): Initializes the sources map and the index map.
+
+setN Method: Sets the total number of documents (N).
+
+printPostingList Method: Prints the document IDs in a posting list.
+
+printDictionary Method: Prints the entire dictionary (inverted index).
+
+buildIndex Method: Builds the inverted index from a list of files.
+
+indexOneLine Method: Indexes a single line of text from a file.
+
+stopWord Method: Checks if a word is a stop word.
+
+stemWord Method: Stems a word (currently just returns the word as-is).
+
+intersect Method: Intersects two posting lists.
+
+find_24_01 Method: Finds documents that contain all the words in the given phrase.
+
+sort Method: Sorts an array of words using bubble sort.
+
+store Method: Stores the index and source records to a file.
+
+storageFileExists Method: Checks if a storage file exists.
+
+createStore Method: Creates a new storage file.
+
+load Method: Loads the index and source records from a storage file.
+
+These comments provide a clear explanation of each 
+  */
 package invertedIndex;
 
 import java.io.BufferedReader;
@@ -31,17 +70,28 @@ public class Index5 {
     public HashMap<String, DictEntry> index; // THe inverted index
     //--------------------------------------------
 
+    /**
+     * Constructor for Index5 class.
+     * Initializes the sources map and the index map.
+     */
     public Index5() {
         sources = new HashMap<Integer, SourceRecord>();
         index = new HashMap<String, DictEntry>();
     }
 
+    /**
+     * Sets the total number of documents (N).
+     * @param n The total number of documents.
+     */
     public void setN(int n) {
         N = n;
     }
 
-
     //---------------------------------------------
+    /**
+     * Prints the posting list for a given Posting object.
+     * @param p The Posting object to print.
+     */
     public void printPostingList(Posting p) {
         System.out.print("[");
         while (p != null) {
@@ -55,6 +105,9 @@ public class Index5 {
     }
 
     //---------------------------------------------
+    /**
+     * Prints the entire dictionary (inverted index).
+     */
     public void printDictionary() {
         Iterator it = index.entrySet().iterator();
         while (it.hasNext()) {
@@ -69,6 +122,10 @@ public class Index5 {
     
    
     //-----------------------------------------------
+    /**
+     * Builds the inverted index from a list of files.
+     * @param files An array of file names to index.
+     */
     public void buildIndex(String[] files) {  // from disk not from the internet
         int fid = 0;
         for (String fileName : files) {
@@ -94,6 +151,12 @@ public class Index5 {
     }
 
     //----------------------------------------------------------------------------  
+    /**
+     * Indexes a single line of text from a file.
+     * @param ln The line of text to index.
+     * @param fid The file ID.
+     * @return The number of words indexed in the line.
+     */
     public int indexOneLine(String ln, int fid) {
         int flen = 0;
 
@@ -136,6 +199,11 @@ public class Index5 {
     }
 
 //----------------------------------------------------------------------------  
+    /**
+     * Checks if a word is a stop word.
+     * @param word The word to check.
+     * @return True if the word is a stop word, false otherwise.
+     */
     boolean stopWord(String word) {
         if (word.equals("the") || word.equals("to") || word.equals("be") || word.equals("for") || word.equals("from") || word.equals("in")
                 || word.equals("a") || word.equals("into") || word.equals("by") || word.equals("or") || word.equals("and") || word.equals("that")) {
@@ -149,6 +217,11 @@ public class Index5 {
     }
 //----------------------------------------------------------------------------  
 
+    /**
+     * Stems a word (currently just returns the word as-is).
+     * @param word The word to stem.
+     * @return The stemmed word.
+     */
     String stemWord(String word) { //skip for now
         return word;
 //        Stemmer s = new Stemmer();
@@ -158,6 +231,12 @@ public class Index5 {
     }
 
     //----------------------------------------------------------------------------  
+    /**
+     * Intersects two posting lists.
+     * @param pL1 The first posting list.
+     * @param pL2 The second posting list.
+     * @return The intersection of the two posting lists.
+     */
     Posting intersect(Posting pL1, Posting pL2) {
 ///****  -1-   complete after each comment ****
 
@@ -188,6 +267,11 @@ public class Index5 {
         return answer;
     }
 
+    /**
+     * Finds documents that contain all the words in the given phrase.
+     * @param phrase The phrase to search for.
+     * @return A string containing the document IDs and titles that match the phrase.
+     */
     public String find_24_01(String phrase) { // any mumber of terms non-optimized search 
         String result = "";
         String[] words = phrase.split("\\W+");
@@ -210,6 +294,11 @@ public class Index5 {
     
     
     //---------------------------------
+    /**
+     * Sorts an array of words using bubble sort.
+     * @param words The array of words to sort.
+     * @return The sorted array of words.
+     */
     String[] sort(String[] words) {  //bubble sort
         boolean sorted = false;
         String sTmp;
@@ -231,6 +320,10 @@ public class Index5 {
 
      //---------------------------------
 
+    /**
+     * Stores the index and source records to a file.
+     * @param storageName The name of the file to store the data in.
+     */
     public void store(String storageName) {
         try {
             String pathToStorage = "/home/ehab/tmp11/rl/"+storageName;
@@ -269,6 +362,11 @@ public class Index5 {
         }
     }
 //=========================================    
+    /**
+     * Checks if a storage file exists.
+     * @param storageName The name of the storage file.
+     * @return True if the file exists, false otherwise.
+     */
     public boolean storageFileExists(String storageName){
         java.io.File f = new java.io.File("/home/ehab/tmp11/rl/"+storageName);
         if (f.exists() && !f.isDirectory())
@@ -277,6 +375,10 @@ public class Index5 {
             
     }
 //----------------------------------------------------    
+    /**
+     * Creates a new storage file.
+     * @param storageName The name of the storage file to create.
+     */
     public void createStore(String storageName) {
         try {
             String pathToStorage = "/home/ehab/tmp11/"+storageName;
@@ -289,7 +391,11 @@ public class Index5 {
         }
     }
 //----------------------------------------------------      
-     //load index from hard disk into memory
+     /**
+     * Loads the index and source records from a storage file.
+     * @param storageName The name of the storage file.
+     * @return The loaded index.
+     */
     public HashMap<String, DictEntry> load(String storageName) {
         try {
             String pathToStorage = "/home/ehab/tmp11/rl/"+storageName;         
