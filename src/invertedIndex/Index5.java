@@ -67,23 +67,7 @@ public class Index5 {
         System.out.println("*** Number of terms = " + index.size());
     }
     
-    // public int processLine(String line, int fid) {
-    //     int count;
-    //     String[] words = line.split("\\W+"); // Splitting line into words
-    //    count=(words.length == 1 && words[0].isEmpty()) ? 0 : words.length;
-    //     for (String word : words) {
-    //         word = word.toLowerCase(); // Convert word to lowercase
-    //         if (!index.containsKey(word)) {
-    //             index.put(word,new DictEntry());
-    //         } else {
-    //             System.out.println("---Found: " + word);
-    //         }
-    //         index.get(word).addPosting(fid); // Add file ID to the word's PostingList
-    //     }
-    //     return count;
-    // }
-
- 
+   
     //-----------------------------------------------
     public void buildIndex(String[] files) {  // from disk not from the internet
         int fid = 0;
