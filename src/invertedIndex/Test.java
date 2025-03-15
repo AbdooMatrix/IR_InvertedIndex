@@ -35,13 +35,6 @@ public class Test {
         String test3 = "data  should plain greatest comif"; // data  should plain greatest comif
         System.out.println("Boo0lean Model result = \n" + index.find_24_01(test3));
 
-  // Create an instance of printPostingList
-  printPostingList printer = new printPostingList();
-        
-  // Assuming you have a Posting object to print
-  Posting p = index.index.get("data").pList; // Example term "data"
-  printer.printPostingList(p);
-
         String phrase = "";
 
         do {
@@ -59,5 +52,4 @@ public class Test {
         
         System.out.println("Exiting search.");
     }
-
 }
