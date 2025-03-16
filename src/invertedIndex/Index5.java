@@ -272,27 +272,39 @@ public class Index5 {
      * @param phrase The phrase to search for.
      * @return A string containing the document IDs and titles that match the phrase.
      */
-    public String find_24_01(String phrase) { // any mumber of terms non-optimized search 
+    public String find_24_01(String phrase) { // any number of terms non-optimized search
         String result = "";
         String[] words = phrase.split("\\W+");
         int len = words.length;
-        
-        //fix this if word is not in the hash table will crash...
+
+        // Fix this: If a word is not in the hash table, it will crash...
+        if (!index.containsKey(words[0].toLowerCase())) {
+            return "No results found.\n";
+        }
+
         Posting posting = index.get(words[0].toLowerCase()).pList;
         int i = 1;
+
         while (i < len) {
+            if (!index.containsKey(words[i].toLowerCase())) {
+                return "No results found.\n";
+            }
             posting = intersect(posting, index.get(words[i].toLowerCase()).pList);
+            if (posting == null) {
+                return "No results found.\n";
+            }
             i++;
         }
+
         while (posting != null) {
             //System.out.println("\t" + sources.get(num));
             result += "\t" + posting.docId + " - " + sources.get(posting.docId).title + " - " + sources.get(posting.docId).length + "\n";
             posting = posting.next;
         }
-        return result;
+
+        return result.isEmpty() ? "No results found.\n" : result;
     }
-    
-    
+
     //---------------------------------
     /**
      * Sorts an array of words using bubble sort.
@@ -326,7 +338,7 @@ public class Index5 {
      */
     public void store(String storageName) {
         try {
-            String pathToStorage = "/home/ehab/tmp11/rl/"+storageName;
+            String pathToStorage = System.getProperty("user.dir")+storageName;
             Writer wr = new FileWriter(pathToStorage);
             for (Map.Entry<Integer, SourceRecord> entry : sources.entrySet()) {
                 System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue().URL + ", Value = " + entry.getValue().title + ", Value = " + entry.getValue().text);
