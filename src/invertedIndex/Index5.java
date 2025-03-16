@@ -281,12 +281,17 @@ public class Index5 {
      */
     public String find_24_01(String phrase) { // any number of terms non-optimized search
         String result = "";
-        String[] words = phrase.split("\\W+");
+        String[] words = phrase.split("\\W+"); // Splitting phrase into words, ignoring non-word characters
         int len = words.length;
+
+        // Potential issue: If phrase is empty, words[0] will not exist, causing an exception.
+        if (len == 0) {
+            return "No results found.\n";
+        }
 
         // Fix this: If a word is not in the hash table, it will crash...
         if (!index.containsKey(words[0].toLowerCase())) {
-            return "No results found.\n";
+            return "No results found.\n"; // Consider logging the missing word for debugging
         }
 
         Posting posting = index.get(words[0].toLowerCase()).pList;
@@ -294,25 +299,26 @@ public class Index5 {
 
         while (i < len) {
             if (!index.containsKey(words[i].toLowerCase())) {
-                return "No results found.\n";
+                return "No results found.\n"; // If any word is missing, terminate early
             }
             posting = intersect(posting, index.get(words[i].toLowerCase()).pList);
-            if (posting == null) {
+            if (posting == null) { // If intersection returns null, no common documents found
                 return "No results found.\n";
             }
             i++;
         }
 
         while (posting != null) {
-            //System.out.println("\t" + sources.get(num));
-            result += "\tfound in document --> " + posting.docId + " - " ;
-            result += "path is --> " + sources.get(posting.docId).title + " - " ;
+
+            result += "\tfound in document --> " + posting.docId + " - ";
+            result += "path is --> " + sources.get(posting.docId).title + " - ";
             result += "document length --> " + sources.get(posting.docId).length + "\n";
             posting = posting.next;
         }
 
         return result.isEmpty() ? "No results found.\n" : result;
     }
+
 
     //---------------------------------
     /**
