@@ -37,9 +37,6 @@ public class Test {
         index.store("index");
         index.printDictionary();
 
-        String test3 = "data  should plain greatest comif"; // data  should plain greatest comif
-        System.out.println("Boo0lean Model result = \n" + index.find_24_01(test3));
-
         String phrase = "";
 
         do {
