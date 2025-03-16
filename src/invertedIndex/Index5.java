@@ -230,42 +230,49 @@ public class Index5 {
 //        return s.toString();
     }
 
-    //----------------------------------------------------------------------------  
+    //----------------------------------------------------------------------------
     /**
+     * This method finds the intersection of two sorted linked lists of postings.
+     * A posting represents a document ID (`docId`), and the intersection consists
+     * of document IDs present in both lists.
+
      * Intersects two posting lists.
-     * @param pL1 The first posting list.
-     * @param pL2 The second posting list.
-     * @return The intersection of the two posting lists.
+     * @param pL1 The first sorted linked list of postings.
+     * @param pL2 The second sorted linked list of postings.
+     * @return A new linked list containing only the common document IDs.
      */
     Posting intersect(Posting pL1, Posting pL2) {
-///****  -1-   complete after each comment ****
 
-        Posting answer = null;
-        Posting last = null;
+        Posting answer = null; // Head of the intersection list
+        Posting last = null;   // Pointer to track the last node in the intersection list
 
+        // Traverse both posting lists
         while (pL1 != null && pL2 != null) {
-            if (pL1.docId == pL2.docId) {
-                Posting newPosting = new Posting(pL1.docId);
-                if (answer == null) {
-                    answer = last = newPosting;
+            if (pL1.docId == pL2.docId) { // Found a common document ID
+                Posting newPosting = new Posting(pL1.docId); // Create a new node
+                if (answer == null) { // If this is the first common node
+                    answer = last = newPosting; // Set it as the head
+                } else {
+                    last.next = newPosting; // Append to the result list
+                    last = last.next;       // Move the last pointer
                 }
-                else {
-                    last.next = new Posting(pL1.docId);
-                    last = last.next;
-                }
+                // Move both pointers forward since we found a match
                 pL1 = pL1.next;
                 pL2 = pL2.next;
             }
             else if (pL1.docId > pL2.docId) {
+                // Move pL2 forward since its docId is smaller
                 pL2 = pL2.next;
             }
             else {
+                // Move pL1 forward since its docId is smaller
                 pL1 = pL1.next;
             }
         }
 
-        return answer;
+        return answer; // Return the intersection list
     }
+
 
     /**
      * Finds documents that contain all the words in the given phrase.
