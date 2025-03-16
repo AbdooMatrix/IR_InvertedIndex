@@ -298,7 +298,9 @@ public class Index5 {
 
         while (posting != null) {
             //System.out.println("\t" + sources.get(num));
-            result += "\t" + posting.docId + " - " + sources.get(posting.docId).title + " - " + sources.get(posting.docId).length + "\n";
+            result += "\tfound in document --> " + posting.docId + " - " ;
+            result += "path is --> " + sources.get(posting.docId).title + " - " ;
+            result += "document length --> " + sources.get(posting.docId).length + "\n";
             posting = posting.next;
         }
 
