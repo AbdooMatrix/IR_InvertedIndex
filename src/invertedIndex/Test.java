@@ -15,12 +15,17 @@ public class Test {
         Index5 index = new Index5();
         //|**  change it to your collection directory 
         //|**  in windows "C:\\tmp11\\rl\\collection\\"       
-        String files = "C:\\tmp11\\rl\\collection\\";
+        String projectDirectory = System.getProperty("user.dir"); // Gets the project folder path
+        String files = projectDirectory + File.separator + "collection" + File.separator;
 
         File file = new File(files);
         //|** String[] 	list()
         //|**  Returns an array of strings naming the files and directories in the directory denoted by this abstract pathname.
         String[] fileList = file.list();
+        if (fileList == null) {
+            System.out.println("Error: Directory is empty or does not exist.");
+            return;
+        }
 
         fileList = index.sort(fileList);
         index.N = fileList.length;
